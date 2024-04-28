@@ -18,6 +18,8 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 
 public class Ztype{
+	
+	private int wavesNumber = 0;
 
 	private JFrame frame;
 	private List<String[]> waves = new ArrayList<>();
@@ -108,20 +110,21 @@ public class Ztype{
 		waves.add(arreglo29);
 		waves.add(arreglo30);
 		
+		frame = new JFrame();
+		frame.setBounds(700, 90, 495, 848);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		//initialize();
-		//newGame();
-		//settings();
+		newGame(frame);
+		//settings(frame);
 		//myStats();
-		loadMyOwnWords();
+		//loadMyOwnWords(frame);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(700, 90, 495, 848);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
@@ -205,9 +208,9 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
+				newGame(frame);
 				frame.repaint();
 				frame.revalidate();
-				newGame();
 			}
 
 			@Override
@@ -241,9 +244,9 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
+				settings(frame);
 				frame.repaint();
 				frame.revalidate();
-				settings();
 			}
 
 			@Override
@@ -276,9 +279,9 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
+				myStats(frame);
 				frame.repaint();
 				frame.revalidate();
-				myStats();
 			}
 
 			@Override
@@ -311,10 +314,9 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
+				loadMyOwnWords(frame);
 				frame.repaint();
 				frame.revalidate();
-				loadMyOwnWords();
-				
 			}
 
 			@Override
@@ -344,10 +346,7 @@ public class Ztype{
 		});
 	}
 	
-	private void newGame() {
-		frame = new JFrame();
-		frame.setBounds(700, 90, 495, 848);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private void newGame(JFrame frame) {
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -357,7 +356,7 @@ public class Ztype{
 		ImageIcon jugador = new ImageIcon("src/program/nave.png");
 		Image imagenEscalada = jugador.getImage().getScaledInstance(100, -1, Image.SCALE_SMOOTH); // Escala la imagen a 50 de ancho y altura proporcional
 		ImageIcon jugadorEscalado = new ImageIcon(imagenEscalada);
-
+		ImageIcon pausa = new ImageIcon("src/program/boton de pausa.png");
 		
 		JLabel player = new JLabel(jugadorEscalado);
 		player.setBounds(200,700,jugadorEscalado.getIconWidth(), jugadorEscalado.getIconHeight());
@@ -366,17 +365,178 @@ public class Ztype{
 		JLabel menuFondo = new JLabel(fondo);
 		menuFondo.setBounds(0,0,fondo.getIconWidth(),fondo.getIconHeight());
 		
-		panel.add(menuFondo);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 11, 52, 52);
+		panel_1.setBackground(new Color(240,240,240,100));
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel botonPausa = new JLabel(pausa);
+		botonPausa.setBounds(10,11,32,32);
+		panel_1.add(botonPausa);
 		
 		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(51, 115, 376, 584);
+		panel.add(panel_2);
+		panel_2.setLayout(null);
+		panel_2.setVisible(false);
+		panel_2.setBackground(new Color(240,240,240,140));
+		
+		JLabel lblNewLabel_3 = new JLabel("PAUSE");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 36));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(10, 11, 356, 38);
+		panel_2.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("-       50%    + ");
+		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 36));
+		lblNewLabel_3_1.setBounds(10, 163, 356, 38);
+		panel_2.add(lblNewLabel_3_1);
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("-       50%    + ");
+		lblNewLabel_3_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 36));
+		lblNewLabel_3_1_1.setBounds(10, 379, 356, 38);
+		panel_2.add(lblNewLabel_3_1_1);
+		
+		JLabel lblNewLabel_3_1_1_1 = new JLabel("Back to title");
+		lblNewLabel_3_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		lblNewLabel_3_1_1_1.setBounds(10, 523, 356, 38);
+		panel_2.add(lblNewLabel_3_1_1_1);
+		
+		JLabel lblNewLabel_3_1_2 = new JLabel("Sound");
+		lblNewLabel_3_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_3_1_2.setBounds(10, 83, 356, 38);
+		panel_2.add(lblNewLabel_3_1_2);
+		
+		JLabel lblNewLabel_3_1_2_1 = new JLabel("Music");
+		lblNewLabel_3_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_3_1_2_1.setBounds(10, 293, 356, 38);
+		panel_2.add(lblNewLabel_3_1_2_1);
+		
+		
+		/*
+		 * 
+		 * ADD MOUSELISTENERS
+		 * 
+		 * 
+		 */
+		
+		panel_1.addMouseListener(new MouseListener() {
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//Timer.stop();
+				panel_2.setVisible(true);
+				lblNewLabel_3_1_1_1.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						frame.getContentPane().removeAll();
+						initialize();
+						frame.repaint();
+						frame.revalidate();
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		panel.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel_2.setVisible(false);
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		
+		
+		panel.add(menuFondo);
 	}
 	
-	private void settings() {
-		frame = new JFrame();
-		frame.setBounds(700, 90, 495, 848);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+	private void settings(JFrame frame) {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -464,9 +624,9 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
+				initialize();
 				frame.repaint();
 				frame.revalidate();
-				initialize();
 				
 			}
 
@@ -565,11 +725,7 @@ public class Ztype{
 		});
 	}
 	
-	private void myStats() {
-		frame = new JFrame();
-		frame.setBounds(700, 90, 495, 848);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+	private void myStats(JFrame frame) {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -643,9 +799,9 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
+				initialize();
 				frame.repaint();
 				frame.revalidate();
-				initialize();
 				
 			}
 
@@ -681,10 +837,7 @@ public class Ztype{
 		panel.add(menuFondo);
 	}
 	
-	private void loadMyOwnWords() {
-		frame = new JFrame();
-		frame.setBounds(700, 90, 495, 848);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private void loadMyOwnWords(JFrame frame) {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
@@ -742,5 +895,49 @@ public class Ztype{
 		
 		JLabel menuFondo = new JLabel(fondo);
 		menuFondo.setBounds(0,0,fondo.getIconWidth(),fondo.getIconHeight());
+		
+		/*
+		 * 
+		 * 
+		 * Add mouseListeners.
+		 * 
+		 * 
+		 */
+		
+		lblNewLabel_2_1_2_2.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.getContentPane().removeAll();
+				initialize();
+				frame.repaint();
+				frame.revalidate();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 }
