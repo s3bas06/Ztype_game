@@ -1,10 +1,14 @@
 package program;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,13 +20,18 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 public class Ztype{
 	
-	private int wavesNumber = 0;
-
+	private int wavesNumber = -1;
+	int indiceAnterior = -1;
+	
 	private JFrame frame;
 	private List<String[]> waves = new ArrayList<>();
+	private List<String> waveActual = new ArrayList<>();
+	
+	private List<player> arregloEnemigos = new ArrayList<>();
 	
 	private String[] arreglo1 = {"Manzana", "Perro", "Montaña", "Sol"};
 	private String[] arreglo2 = {"Gato", "Bosque", "Lápiz", "Casa"};
@@ -354,7 +363,7 @@ public class Ztype{
 		
 		ImageIcon fondo = new ImageIcon("src/program/Galaxia.gif");
 		ImageIcon jugador = new ImageIcon("src/program/nave.png");
-		Image imagenEscalada = jugador.getImage().getScaledInstance(100, -1, Image.SCALE_SMOOTH); // Escala la imagen a 50 de ancho y altura proporcional
+		Image imagenEscalada = jugador.getImage().getScaledInstance(100, -1, Image.SCALE_SMOOTH);
 		ImageIcon jugadorEscalado = new ImageIcon(imagenEscalada);
 		ImageIcon pausa = new ImageIcon("src/program/boton de pausa.png");
 		
@@ -528,13 +537,130 @@ public class Ztype{
 				// TODO Auto-generated method stub
 				
 			}
+		});
+		
+		/*
+		 * 
+		 * 
+		 *  CREACION DE TODAS LAS COSAS DEL JUEGO, EL TIMER, LA CREACION DE NAVES ENEMIGAS, GENERACION DE LAS PALABRAS, ETC.
+		 * 
+		 * 
+		 * 
+		 */
+		
+		Timer timerJuego = new Timer(100, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
 			
 		});
 		
+		timerJuego.start();
+		generarArreglo(indiceAnterior);
+		generarNaves(panel);
 		
+		wavesNumber = 1;
 		
 		panel.add(menuFondo);
 	}
+	
+	private void generarNaves(JPanel panel) {
+		int cant = waveActual.size();
+		List<JLabel> arregloJLabel = new ArrayList<>();
+		for(int i = 0; i<cant; i++) {
+			Random randx = new Random();
+			Random randy = new Random();
+			Random booleano = new Random();
+			Boolean lanzar = false;
+			
+			int x = randx.nextInt(300) + 50;
+			int y = randy.nextInt(1);
+		
+			if(wavesNumber>4) {
+				lanzar = booleano.nextBoolean();
+				if(lanzar) {
+					ImageIcon naveEnemiga = new ImageIcon("src/program/nave enemiga 2.png");
+					Image imagenEscalada = naveEnemiga.getImage().getScaledInstance(64, -1, Image.SCALE_SMOOTH);
+					ImageIcon enemigoEscalado = new ImageIcon(imagenEscalada);
+					arregloEnemigos.add(new player(x,(-1) * y, 64,64, enemigoEscalado, true)); 
+				}else {
+					ImageIcon naveEnemiga = new ImageIcon("src/program/nave enemiga 1.png");
+					Image imagenEscalada = naveEnemiga.getImage().getScaledInstance(64, -1, Image.SCALE_SMOOTH);
+					ImageIcon enemigoEscalado= new ImageIcon(imagenEscalada);
+					arregloEnemigos.add(new player(x,(-1) * y, 64,64, enemigoEscalado, true)); 
+				}
+			}else {
+				ImageIcon naveEnemiga = new ImageIcon("src/program/nave enemiga 1.png");
+				Image imagenEscalada = naveEnemiga.getImage().getScaledInstance(64, -1, Image.SCALE_SMOOTH);
+				ImageIcon enemigoEscalado= new ImageIcon(imagenEscalada);
+				arregloEnemigos.add(new player(x,(-1) * y, 64,64, enemigoEscalado, true)); 
+			}
+		}
+		
+		for(int i = 0; i<arregloEnemigos.size(); i++) {
+			 JLabel enemigo = new JLabel(arregloEnemigos.get(i).getTextura());
+			 enemigo.setBounds(arregloEnemigos.get(i).getX(), arregloEnemigos.get(i).getY(), arregloEnemigos.get(i).getWidth(), arregloEnemigos.get(i).getHeight());
+			 arregloJLabel.add(enemigo);
+		}
+		
+		for(int i = 0; i<arregloJLabel.size(); i++) {
+			panel.add(arregloJLabel.get(i));
+		}
+	}
+
+	private void generarArreglo(int indiceAnterior) {
+		Random rand = new Random();
+		int indice = 0;
+		if(wavesNumber<=3) {
+			indice = rand.nextInt(3);
+			if(indice == indiceAnterior) {
+				generarArreglo(indiceAnterior);
+			}else {
+				for(String palabras : waves.get(indice)) {
+					waveActual.add(palabras);
+				}
+				indiceAnterior = indice;
+			}
+		}
+		
+		if(wavesNumber>3 && wavesNumber <= 8) {
+			indice = rand.nextInt(5) + 3;
+			if(indice == indiceAnterior) {
+				generarArreglo(indiceAnterior);
+			}else {
+				for(String palabras : waves.get(indice)) {
+					waveActual.add(palabras);
+				}
+				indiceAnterior = indice;
+			}
+		}
+		
+		if(wavesNumber>8 && wavesNumber <= 13) {
+			indice = rand.nextInt(5) + 8;
+			if(indice == indiceAnterior) {
+				generarArreglo(indiceAnterior);
+			}else {
+				for(String palabras : waves.get(indice)) {
+					waveActual.add(palabras);
+				}
+				indiceAnterior = indice;
+			}
+		}
+		
+		if(wavesNumber>13 && wavesNumber <= 30) {
+			if(indice == indiceAnterior) {
+				generarArreglo(indiceAnterior);
+			}else {
+				for(String palabras : waves.get(indice)) {
+					waveActual.add(palabras);
+				}
+				indiceAnterior = indice;
+			}
+		}
+	}
+	
 	
 	private void settings(JFrame frame) {
 		JPanel panel = new JPanel();
@@ -780,6 +906,7 @@ public class Ztype{
 		panel_1_1_1.add(lblNewLabel_2_1_2_2);
 		
 		ImageIcon fondo = new ImageIcon("src/program/Galaxia.gif");
+		
 		
 		JLabel menuFondo = new JLabel(fondo);
 		menuFondo.setBounds(0,0,fondo.getIconWidth(),fondo.getIconHeight());
