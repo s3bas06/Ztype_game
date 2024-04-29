@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -38,9 +37,9 @@ public class Ztype{
 	private List<player> arregloEnemigos = new ArrayList<>();
 	private List<JPanel> arregloNavesPanel = new ArrayList<>();
 	
-	private String[] arreglo1 = {"Manzana", "Perro", "Montaña", "Sol"};
-	private String[] arreglo2 = {"Gato", "Bosque", "Lápiz", "Casa"};
-	private String[] arreglo3 = {"Auto", "Playa", "Libro", "Montaña"};
+	private String[] arreglo1 = {"Manzana", "Perro", "Rezar", "Sol"};
+	private String[] arreglo2 = {"Gato", "Bosque", "Lapiz", "Casa"};
+	private String[] arreglo3 = {"Auto", "Playa", "Libro", "Marcar"};
 	
 	private String[] arreglo4 = {"Flor", "Árbol", "Estrella", "Pelota", "Mariposa", "Reloj"};
 	private String[] arreglo5 = {"Oso", "Cielo", "Nube", "Río", "Reloj", "Lámpara"};
@@ -557,25 +556,57 @@ public class Ztype{
 		generarArreglo(indiceAnterior);
 		generarNaves(panel);
 		
-		wavesNumber = 1;
+		if(wavesNumber == -1) {
+			wavesNumber = 1;
+		}
 		
-		Timer timerJuego = new Timer(100, new ActionListener() {
-
+		Timer timerJuego = new Timer(100 - velocidad, new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(JPanel panel  : arregloNavesPanel) {
-					panel.setBounds(panel.getX(), panel.getY() + 2, panel.getWidth(), panel.getHeight());
+				int j=0;
+				ArrayList<JPanel> copiaArregloNavesPanel = new ArrayList<>(arregloNavesPanel);
+				for(JPanel panelEnemigo  : copiaArregloNavesPanel) {
+					panelEnemigo.repaint();
+					panelEnemigo.revalidate();
+					panelEnemigo.setBounds(panelEnemigo.getX(), panelEnemigo.getY() + 2, panelEnemigo.getWidth(), panelEnemigo.getHeight());
+					JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
+				    String texto = lblAuxiliar.getText();
+				    
+				    if(texto == "" || panelEnemigo.getY() > 850) {
+				    	panelEnemigo.removeAll();
+				    	arregloNavesPanel.remove(j);
+				    	frame.repaint();
+				    	frame.revalidate();
+				    }
+				    j++;
+				}
+				
+				if(arregloNavesPanel.isEmpty()) {
+					indiceAnterior = wavesNumber;
+					wavesNumber++;
+					waveActual.clear();
+					arregloEnemigos.clear();
+					arregloNavesPanel.clear();
+					frame.getContentPane().removeAll();
+					newGame(frame);
+					frame.repaint();
+					frame.revalidate();
+					
 				}
 			}
 			
 		});
 		timerJuego.start();
 		
+		
 		frame.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
+				char letraIngresada = e.getKeyChar();
 				
+				elegirLabel(letraIngresada);
 			}
 
 			@Override
@@ -595,7 +626,21 @@ public class Ztype{
 		panel.add(menuFondo);
 	}
 	
-	
+	private void elegirLabel(char key) {
+		for (JPanel panelEnemigo : arregloNavesPanel) {
+		    JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
+		    String texto = lblAuxiliar.getText();
+		    
+		    if (texto != null && !texto.isEmpty()) {
+		        char primerCaracter = Character.toLowerCase(texto.charAt(0));
+		        if (primerCaracter == Character.toLowerCase(key)) {
+		            lblAuxiliar.setText(texto.substring(1));
+		            break;
+		        }
+		    }
+		}
+		
+	}
 	
 	private void generarNaves(JPanel panel) {
 		int cant = waveActual.size();
@@ -633,7 +678,7 @@ public class Ztype{
 		for(int i = 0; i<arregloEnemigos.size(); i++) {
 			JPanel panelEnemigo = new JPanel();
 			panelEnemigo.setLayout(new FlowLayout());
-			panelEnemigo.setBounds(arregloEnemigos.get(i).getX(), arregloEnemigos.get(i).getY(), arregloEnemigos.get(i).getWidth() + 20, arregloEnemigos.get(i).getHeight() + 20);
+			panelEnemigo.setBounds(arregloEnemigos.get(i).getX(), arregloEnemigos.get(i).getY(), arregloEnemigos.get(i).getWidth() + 20, arregloEnemigos.get(i).getHeight() + 30);
 			panelEnemigo.setBackground(new Color(0,0,0,0));
 			JLabel enemigo = new JLabel(arregloEnemigos.get(i).getTextura());
 			panelEnemigo.add(enemigo);
@@ -689,6 +734,7 @@ public class Ztype{
 		}
 		
 		if(wavesNumber>13 && wavesNumber <= 30) {
+			indice = rand.nextInt(16) + 14;
 			if(indice == indiceAnterior) {
 				generarArreglo(indiceAnterior);
 			}else {
@@ -697,6 +743,10 @@ public class Ztype{
 				}
 				indiceAnterior = indice;
 			}
+		}
+		
+		for(String palabras : waveActual) {
+			System.out.println(palabras);
 		}
 	}
 	
