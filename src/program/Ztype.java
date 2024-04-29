@@ -1,8 +1,11 @@
 package program;
 
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -25,13 +28,15 @@ import javax.swing.Timer;
 public class Ztype{
 	
 	private int wavesNumber = -1;
-	int indiceAnterior = -1;
+	private int indiceAnterior = -1;
+	private int velocidad = 2;
 	
 	private JFrame frame;
+	
 	private List<String[]> waves = new ArrayList<>();
 	private List<String> waveActual = new ArrayList<>();
-	
 	private List<player> arregloEnemigos = new ArrayList<>();
+	private List<JPanel> arregloNavesPanel = new ArrayList<>();
 	
 	private String[] arreglo1 = {"Manzana", "Perro", "Montaña", "Sol"};
 	private String[] arreglo2 = {"Gato", "Bosque", "Lápiz", "Casa"};
@@ -548,35 +553,61 @@ public class Ztype{
 		 * 
 		 */
 		
-		Timer timerJuego = new Timer(100, new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-			
-		});
 		
-		timerJuego.start();
 		generarArreglo(indiceAnterior);
 		generarNaves(panel);
 		
 		wavesNumber = 1;
 		
+		Timer timerJuego = new Timer(100, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(JPanel panel  : arregloNavesPanel) {
+					panel.setBounds(panel.getX(), panel.getY() + 2, panel.getWidth(), panel.getHeight());
+				}
+			}
+			
+		});
+		timerJuego.start();
+		
+		frame.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 		panel.add(menuFondo);
 	}
 	
+	
+	
 	private void generarNaves(JPanel panel) {
 		int cant = waveActual.size();
-		List<JLabel> arregloJLabel = new ArrayList<>();
+		
 		for(int i = 0; i<cant; i++) {
 			Random randx = new Random();
 			Random randy = new Random();
 			Random booleano = new Random();
 			Boolean lanzar = false;
 			
-			int x = randx.nextInt(300) + 50;
-			int y = randy.nextInt(1);
+			int x = randx.nextInt(300) + 30;
+			int y = randy.nextInt(30) + 60;
 		
 			if(wavesNumber>4) {
 				lanzar = booleano.nextBoolean();
@@ -600,13 +631,21 @@ public class Ztype{
 		}
 		
 		for(int i = 0; i<arregloEnemigos.size(); i++) {
-			 JLabel enemigo = new JLabel(arregloEnemigos.get(i).getTextura());
-			 enemigo.setBounds(arregloEnemigos.get(i).getX(), arregloEnemigos.get(i).getY(), arregloEnemigos.get(i).getWidth(), arregloEnemigos.get(i).getHeight());
-			 arregloJLabel.add(enemigo);
+			JPanel panelEnemigo = new JPanel();
+			panelEnemigo.setLayout(new FlowLayout());
+			panelEnemigo.setBounds(arregloEnemigos.get(i).getX(), arregloEnemigos.get(i).getY(), arregloEnemigos.get(i).getWidth() + 20, arregloEnemigos.get(i).getHeight() + 20);
+			panelEnemigo.setBackground(new Color(0,0,0,0));
+			JLabel enemigo = new JLabel(arregloEnemigos.get(i).getTextura());
+			panelEnemigo.add(enemigo);
+			enemigo.setSize(arregloEnemigos.get(i).getWidth(), arregloEnemigos.get(i).getHeight());
+			JLabel palabra = new JLabel(waveActual.get(i));
+			palabra.setForeground(new Color(240,240,240));
+			panelEnemigo.add(palabra);
+			arregloNavesPanel.add(panelEnemigo);
 		}
 		
-		for(int i = 0; i<arregloJLabel.size(); i++) {
-			panel.add(arregloJLabel.get(i));
+		for(JPanel panelEnemigo : arregloNavesPanel) {
+			panel.add(panelEnemigo);
 		}
 	}
 
