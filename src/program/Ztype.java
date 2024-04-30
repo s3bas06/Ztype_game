@@ -8,10 +8,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,10 +31,14 @@ public class Ztype{
 	
 	private int wavesNumber = -1;
 	private int indiceAnterior = -1;
-	private int velocidad = 2;
+	private float volumenMusica = -40.0f;
+	private float volumenSonido = -40.0f;
+	
+	int porcentajeVolumenMusica = 50;
+	int porcentajeVolumenSonido = 50;
 	
 	private JFrame frame;
-	
+
 	private List<String[]> waves = new ArrayList<>();
 	private List<String> waveActual = new ArrayList<>();
 	private List<player> arregloEnemigos = new ArrayList<>();
@@ -40,37 +47,40 @@ public class Ztype{
 	private String[] arreglo1 = {"Manzana", "Perro", "Rezar", "Sol"};
 	private String[] arreglo2 = {"Gato", "Bosque", "Lapiz", "Casa"};
 	private String[] arreglo3 = {"Auto", "Playa", "Libro", "Marcar"};
-	
-	private String[] arreglo4 = {"Flor", "Árbol", "Estrella", "Pelota", "Mariposa", "Reloj"};
-	private String[] arreglo5 = {"Oso", "Cielo", "Nube", "Río", "Reloj", "Lámpara"};
-	private String[] arreglo6 = {"Guitarra", "Universo", "Dinosaurio", "Globo", "Camión", "Sombrero"};
-	private String[] arreglo7 = {"Aguacate", "Elefante", "Reloj", "Canción", "Nadar", "Bicicleta"};
+
+	private String[] arreglo4 = {"Flor", "Arbol", "Estrella", "Pelota", "Mariposa", "Reloj"};
+	private String[] arreglo5 = {"Oso", "Cielo", "Nube", "Rio", "Reloj", "Lampara"};
+	private String[] arreglo6 = {"Guitarra", "Universo", "Dinosaurio", "Globo", "Camion", "Sombrero"};
+	private String[] arreglo7 = {"Aguacate", "Elefante", "Reloj", "Cancion", "Nadar", "Bicicleta"};
 	private String[] arreglo8 = {"Computadora", "Pintura", "Rosa", "Guitarra", "Ventana", "Reloj"};
-	
+
 	private String[] arreglo9 = {"Cebra", "Peluche", "Pastel", "Luna", "Reloj", "Elefante", "Jirafa", "Nube"};
 	private String[] arreglo10 = {"Chocolate", "Elefante", "Mariposa", "Guitarra", "Reloj", "Cama", "Rana", "Flor"};
-	private String[] arreglo11 = {"Camisa", "León", "Elefante", "Cielo", "Reloj", "Tigre", "Águila", "Flor"};
-	private String[] arreglo12 = {"Lápiz", "Perro", "Cielo", "Manzana", "Reloj", "Elefante", "Vaca", "Globo"};
-	private String[] arreglo13 = {"Libro", "Rana", "Elefante", "Tigre", "Reloj", "Mariposa", "Plátano", "Luna"};
-	
-	private String[] arreglo14 = {"Globo", "Piano", "Cebra", "Vaca", "Elefante", "Tigre", "Cielo", "Árbol", "Reloj", "Perro", "Cama", "Lámpara"};
-	private String[] arreglo15 = {"Reloj", "Jirafa", "León", "Pelota", "Pastel", "Luna", "Rosa", "Estrella", "Computadora", "Tren", "Nube", "Gato"};
-	private String[] arreglo16 = {"Elefante", "Flor", "Mariposa", "Peluche", "Canción", "Águila", "Río", "Guitarra", "Nube", "Sol", "Camisa", "Lápiz"};
-	private String[] arreglo17 = {"Luna", "Globo", "Reloj", "Nube", "Estrella", "Cama", "Elefante", "Pintura", "Rana", "Cielo", "Pelota", "Perro"};
-	private String[] arreglo18 = {"Árbol", "Gato", "Cebra", "Pastel", "Mariposa", "Elefante", "Guitarra", "Reloj", "Piano", "Flor", "Estrella", "Pelota"};
-	private String[] arreglo19 = {"Mariposa", "Elefante", "Computadora", "Reloj", "Rana", "Nube", "Peluche", "Luna", "Águila", "Cielo", "Pastel", "Perro"};
-	private String[] arreglo20 = {"Pelota", "Cama", "Nube", "Luna", "Guitarra", "Reloj", "Estrella", "Elefante", "Mariposa", "Piano", "Perro", "Globo"};
-	private String[] arreglo21 = {"Pastel", "Pelota", "Luna", "Cama", "Águila", "Estrella", "Computadora", "Elefante", "Rosa", "Cielo", "Reloj", "Nube"};
-	private String[] arreglo22 = {"Reloj", "Cielo", "Águila", "Globo", "Pintura", "Luna", "Computadora", "Pastel", "Elefante", "Mariposa", "Pelota", "Nube"};
-	private String[] arreglo23 = {"Nube", "Águila", "Reloj", "Luna", "Globo", "Piano", "Cama", "Elefante", "Computadora", "Pelota", "Mariposa", "Estrella"};
-	private String[] arreglo24 = {"Estrella", "Piano", "Águila", "Computadora", "Reloj", "Mariposa", "Pelota", "Luna", "Globo", "Nube", "Cama", "Elefante"};
-	private String[] arreglo25 = {"Cama", "Reloj", "Águila", "Nube", "Luna", "Globo", "Elefante", "Pelota", "Mariposa", "Estrella", "Piano", "Computadora"};
-	private String[] arreglo26 = {"Computadora", "Cama", "Elefante", "Pelota", "Mariposa", "Luna", "Reloj", "Águila", "Nube", "Globo", "Estrella", "Piano"};
-	private String[] arreglo27 = {"Luna", "Águila", "Pelota", "Reloj", "Computadora", "Estrella", "Globo", "Piano", "Nube", "Mariposa", "Cama", "Elefante"};
-	private String[] arreglo28 = {"Nube", "Globo", "Reloj", "Piano", "Águila", "Mariposa", "Cama", "Estrella", "Computadora", "Pelota", "Luna", "Elefante"};
-	private String[] arreglo29 = {"Piano", "Mariposa", "Computadora", "Globo", "Estrella", "Reloj", "Nube", "Pelota", "Águila", "Luna", "Cama", "Elefante"};
-	private String[] arreglo30 = {"Reloj", "Globo", "Pelota", "Nube", "Luna", "Águila", "Cama", "Mariposa", "Piano", "Computadora", "Elefante", "Estrella"};
+	private String[] arreglo11 = {"Camisa", "Leon", "Elefante", "Cielo", "Reloj", "Tigre", "Aguila", "Flor"};
+	private String[] arreglo12 = {"Lapiz", "Perro", "Cielo", "Manzana", "Reloj", "Elefante", "Vaca", "Globo"};
+	private String[] arreglo13 = {"Libro", "Rana", "Elefante", "Tigre", "Reloj", "Mariposa", "Platano", "Luna"};
 
+	private String[] arreglo14 = {"Globo", "Piano", "Cebra", "Vaca", "Elefante", "Tigre", "Cielo", "Arbol", "Reloj", "Perro", "Cama", "Lampara"};
+	private String[] arreglo15 = {"Reloj", "Jirafa", "Leon", "Pelota", "Pastel", "Luna", "Rosa", "Estrella", "Computadora", "Tren", "Nube", "Gato"};
+	private String[] arreglo16 = {"Elefante", "Flor", "Mariposa", "Peluche", "Cancion", "Aguila", "Rio", "Guitarra", "Nube", "Sol", "Camisa", "Lapiz"};
+	private String[] arreglo17 = {"Luna", "Globo", "Reloj", "Nube", "Estrella", "Cama", "Elefante", "Pintura", "Rana", "Cielo", "Pelota", "Perro"};
+	private String[] arreglo18 = {"Arbol", "Gato", "Cebra", "Pastel", "Mariposa", "Elefante", "Guitarra", "Reloj", "Piano", "Flor", "Estrella", "Pelota"};
+	private String[] arreglo19 = {"Mariposa", "Elefante", "Computadora", "Reloj", "Rana", "Nube", "Peluche", "Luna", "Aguila", "Cielo", "Pastel", "Perro"};
+	private String[] arreglo20 = {"Pelota", "Cama", "Nube", "Luna", "Guitarra", "Reloj", "Estrella", "Elefante", "Mariposa", "Piano", "Perro", "Globo"};
+	private String[] arreglo21 = {"Pastel", "Pelota", "Luna", "Cama", "Aguila", "Estrella", "Computadora", "Elefante", "Rosa", "Cielo", "Reloj", "Nube"};
+	private String[] arreglo22 = {"Reloj", "Cielo", "Aguila", "Globo", "Pintura", "Luna", "Computadora", "Pastel", "Elefante", "Mariposa", "Pelota", "Nube"};
+	private String[] arreglo23 = {"Nube", "Aguila", "Reloj", "Luna", "Globo", "Piano", "Cama", "Elefante", "Computadora", "Pelota", "Mariposa", "Estrella"};
+	private String[] arreglo24 = {"Estrella", "Piano", "Aguila", "Computadora", "Reloj", "Mariposa", "Pelota", "Luna", "Globo", "Nube", "Cama", "Elefante"};
+	private String[] arreglo25 = {"Cama", "Reloj", "Aguila", "Nube", "Luna", "Globo", "Elefante", "Pelota", "Mariposa", "Estrella", "Piano", "Computadora"};
+	private String[] arreglo26 = {"Computadora", "Cama", "Elefante", "Pelota", "Mariposa", "Luna", "Reloj", "Aguila", "Nube", "Globo", "Estrella", "Piano"};
+	private String[] arreglo27 = {"Luna", "Aguila", "Pelota", "Reloj", "Computadora", "Estrella", "Globo", "Piano", "Nube", "Mariposa", "Cama", "Elefante"};
+	private String[] arreglo28 = {"Nube", "Globo", "Reloj", "Piano", "Aguila", "Mariposa", "Cama", "Estrella", "Computadora", "Pelota", "Luna", "Elefante"};
+	private String[] arreglo29 = {"Piano", "Mariposa", "Computadora", "Globo", "Estrella", "Reloj", "Nube", "Pelota", "Aguila", "Luna", "Cama", "Elefante"};
+	private String[] arreglo30 = {"Reloj", "Globo", "Pelota", "Nube", "Luna", "Aguila", "Cama", "Mariposa", "Piano", "Computadora", "Elefante", "Estrella"};
+		
+	
+	ReproductorSonido reproductor;
+	ReproductorSonido reproductor2;
 	
 	/**
 	 * Launch the application.
@@ -90,8 +100,11 @@ public class Ztype{
 
 	/**
 	 * Create the application.
+	 * @throws LineUnavailableException 
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException 
 	 */
-	public Ztype() {
+	public Ztype() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		waves.add(arreglo1);
 		waves.add(arreglo2);
 		waves.add(arreglo3);
@@ -127,17 +140,29 @@ public class Ztype{
 		frame.setBounds(700, 90, 495, 848);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		reproductor = new ReproductorSonido();
+		reproductor.cargarSonido("src/program/musica.wav");
+		reproductor.reproducirEnBucle();
+		reproductor.ajustarVolumen(volumenMusica);
+		
+		reproductor2 = new ReproductorSonido();
+		reproductor2.cargarSonido("src/program/laser.wav");
+		reproductor2.ajustarVolumen(volumenSonido);
+		
 		//initialize();
-		newGame(frame);
-		//settings(frame);
+		//newGame(frame);
+		settings(frame);
 		//myStats();
 		//loadMyOwnWords(frame);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
+	 * @throws UnsupportedAudioFileException 
+	 * @throws LineUnavailableException 
 	 */
-	private void initialize() {
+	private void initialize() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 0));
@@ -440,6 +465,96 @@ public class Ztype{
 		 * 
 		 */
 		
+		panel.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel_2.setVisible(false);
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		/*
+		 * 
+		 * 
+		 *  CREACION DE TODAS LAS COSAS DEL JUEGO, EL TIMER, LA CREACION DE NAVES ENEMIGAS, GENERACION DE LAS PALABRAS, ETC.
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		generarArreglo(indiceAnterior);
+		generarNaves(panel);
+		
+		if(wavesNumber == -1) {
+			wavesNumber = 1;
+		}
+		
+		Timer timerJuego = new Timer(500, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int j=0;
+				ArrayList<JPanel> copiaArregloNavesPanel = new ArrayList<>(arregloNavesPanel);
+				for(JPanel panelEnemigo  : copiaArregloNavesPanel) {
+					panelEnemigo.repaint();
+					panelEnemigo.revalidate();
+					panelEnemigo.setBounds(panelEnemigo.getX(), panelEnemigo.getY() + 2, panelEnemigo.getWidth(), panelEnemigo.getHeight());
+					JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
+				    String texto = lblAuxiliar.getText();
+				    
+				    if(texto == "" || panelEnemigo.getY() > 850) {
+				    	panelEnemigo.removeAll();
+				    	arregloNavesPanel.remove(j);
+				    	frame.repaint();
+				    	frame.revalidate();
+				    }
+				    j++;
+				}
+				
+				if(arregloNavesPanel.isEmpty()) {
+					indiceAnterior = wavesNumber;
+					wavesNumber++;
+					waveActual.clear();
+					arregloEnemigos.clear();
+					arregloNavesPanel.clear();
+					frame.getContentPane().removeAll();
+					newGame(frame);
+					frame.repaint();
+					frame.revalidate();
+					
+					
+				}
+			}
+			
+		});
+		timerJuego.start();
+		
 		panel_1.addMouseListener(new MouseListener() {
 
 			@Override
@@ -450,8 +565,23 @@ public class Ztype{
 
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						timerJuego.stop();
+						waveActual.clear();
+						arregloEnemigos.clear();
+						arregloNavesPanel.clear();
 						frame.getContentPane().removeAll();
-						initialize();
+						try {
+							initialize();
+						} catch (UnsupportedAudioFileException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (LineUnavailableException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						frame.repaint();
 						frame.revalidate();
 					}
@@ -510,102 +640,11 @@ public class Ztype{
 			
 		});
 		
-		panel.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel_2.setVisible(false);
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		/*
-		 * 
-		 * 
-		 *  CREACION DE TODAS LAS COSAS DEL JUEGO, EL TIMER, LA CREACION DE NAVES ENEMIGAS, GENERACION DE LAS PALABRAS, ETC.
-		 * 
-		 * 
-		 * 
-		 */
-		
-		
-		generarArreglo(indiceAnterior);
-		generarNaves(panel);
-		
-		if(wavesNumber == -1) {
-			wavesNumber = 1;
-		}
-		
-		Timer timerJuego = new Timer(100 - velocidad, new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int j=0;
-				ArrayList<JPanel> copiaArregloNavesPanel = new ArrayList<>(arregloNavesPanel);
-				for(JPanel panelEnemigo  : copiaArregloNavesPanel) {
-					panelEnemigo.repaint();
-					panelEnemigo.revalidate();
-					panelEnemigo.setBounds(panelEnemigo.getX(), panelEnemigo.getY() + 2, panelEnemigo.getWidth(), panelEnemigo.getHeight());
-					JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
-				    String texto = lblAuxiliar.getText();
-				    
-				    if(texto == "" || panelEnemigo.getY() > 850) {
-				    	panelEnemigo.removeAll();
-				    	arregloNavesPanel.remove(j);
-				    	frame.repaint();
-				    	frame.revalidate();
-				    }
-				    j++;
-				}
-				
-				if(arregloNavesPanel.isEmpty()) {
-					indiceAnterior = wavesNumber;
-					wavesNumber++;
-					waveActual.clear();
-					arregloEnemigos.clear();
-					arregloNavesPanel.clear();
-					frame.getContentPane().removeAll();
-					newGame(frame);
-					frame.repaint();
-					frame.revalidate();
-					
-				}
-			}
-			
-		});
-		timerJuego.start();
-		
-		
 		frame.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char letraIngresada = e.getKeyChar();
-				
 				elegirLabel(letraIngresada);
 			}
 
@@ -626,7 +665,7 @@ public class Ztype{
 		panel.add(menuFondo);
 	}
 	
-	private void elegirLabel(char key) {
+	private void elegirLabel(char key){
 		for (JPanel panelEnemigo : arregloNavesPanel) {
 		    JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
 		    String texto = lblAuxiliar.getText();
@@ -635,6 +674,7 @@ public class Ztype{
 		        char primerCaracter = Character.toLowerCase(texto.charAt(0));
 		        if (primerCaracter == Character.toLowerCase(key)) {
 		            lblAuxiliar.setText(texto.substring(1));
+		            reproductor2.reproducir();
 		            break;
 		        }
 		    }
@@ -652,7 +692,7 @@ public class Ztype{
 			Boolean lanzar = false;
 			
 			int x = randx.nextInt(300) + 30;
-			int y = randy.nextInt(30) + 60;
+			int y = randy.nextInt(30);
 		
 			if(wavesNumber>4) {
 				lanzar = booleano.nextBoolean();
@@ -685,6 +725,7 @@ public class Ztype{
 			enemigo.setSize(arregloEnemigos.get(i).getWidth(), arregloEnemigos.get(i).getHeight());
 			JLabel palabra = new JLabel(waveActual.get(i));
 			palabra.setForeground(new Color(240,240,240));
+			palabra.setBackground(new Color(0,0,0,100));
 			panelEnemigo.add(palabra);
 			arregloNavesPanel.add(panelEnemigo);
 		}
@@ -784,7 +825,7 @@ public class Ztype{
 		lblSoundVolume.setBounds(10, 63, 268, 76);
 		panel_1_1.add(lblSoundVolume);
 		
-		JLabel lblMusicVolume = new JLabel("-   50% +");
+		JLabel lblMusicVolume = new JLabel("-   "+porcentajeVolumenMusica+"% +");
 		lblMusicVolume.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMusicVolume.setForeground(Color.WHITE);
 		lblMusicVolume.setFont(new Font("Tahoma", Font.PLAIN, 35));
@@ -839,7 +880,12 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
-				initialize();
+				try {
+					initialize();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.repaint();
 				frame.revalidate();
 				
@@ -875,7 +921,25 @@ public class Ztype{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				
+				
+				if(e.getX() > lblSoundVolume.getWidth()/2) {
+					if(porcentajeVolumenSonido < 100) {
+						System.out.println("El volumen ha aumentado");
+						porcentajeVolumenSonido = porcentajeVolumenSonido + 10;
+						volumenSonido = volumenSonido + 8.0f;
+						reproductor2.ajustarVolumen(volumenSonido);
+						lblSoundVolume.setText("-   "+porcentajeVolumenSonido+"% +");
+					}
+				}else {
+					if(porcentajeVolumenSonido > 0) {
+					System.out.println("El volumen ha disminuido");
+					porcentajeVolumenSonido = porcentajeVolumenSonido - 10;
+					volumenSonido = volumenSonido - 8.0f;
+					reproductor2.ajustarVolumen(volumenSonido);
+					lblSoundVolume.setText("-   "+porcentajeVolumenSonido+"% +");
+					}
+				}
 				
 			}
 
@@ -909,8 +973,23 @@ public class Ztype{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
+				if(e.getX() > lblMusicVolume.getWidth()/2) {
+					if(porcentajeVolumenMusica < 100) {
+						System.out.println("El volumen ha aumentado");
+						porcentajeVolumenMusica = porcentajeVolumenMusica + 10;
+						volumenMusica = volumenMusica + 8.0f;
+						reproductor.ajustarVolumen(volumenMusica);
+						lblMusicVolume.setText("-   "+porcentajeVolumenMusica+"% +");
+					}
+				}else {
+					if(porcentajeVolumenMusica > 0) {
+					System.out.println("El volumen ha disminuido");
+					porcentajeVolumenMusica = porcentajeVolumenMusica - 10;
+					volumenMusica = volumenMusica - 8.0f;
+					reproductor.ajustarVolumen(volumenMusica);
+					lblMusicVolume.setText("-   "+porcentajeVolumenMusica+"% +");
+					}
+				}
 			}
 
 			@Override
@@ -1015,7 +1094,12 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
-				initialize();
+				try {
+					initialize();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.repaint();
 				frame.revalidate();
 				
@@ -1125,7 +1209,12 @@ public class Ztype{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.getContentPane().removeAll();
-				initialize();
+				try {
+					initialize();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.repaint();
 				frame.revalidate();
 			}
