@@ -3,6 +3,10 @@ package program;
 import javax.swing.ImageIcon;
 
 public class player extends ImageIcon {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int x;
 	int y;
 	int width;

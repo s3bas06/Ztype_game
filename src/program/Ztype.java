@@ -47,39 +47,41 @@ public class Ztype{
 	private List<player> arregloEnemigos = new ArrayList<>();
 	private List<JPanel> arregloNavesPanel = new ArrayList<>();
 	
-	private String[] arreglo1 = {"Manzana", "Perro", "Rezar", "Sol"};
-	private String[] arreglo2 = {"Gato", "Bosque", "Lapiz", "Casa"};
-	private String[] arreglo3 = {"Auto", "Playa", "Libro", "Marcar"};
+	private String[] arreglo1 = {"Manzana", "Perro", "Rezar", "Sol", "Cama", "Luna", "Vaca", "Pastel", "Nube", "Arbol"};
+	private String[] arreglo2 = {"Gato", "Bosque", "Lapiz", "Casa", "Chocolate", "Rana", "Flor", "Tigre", "Aguila", "Mariposa"};
+	private String[] arreglo3 = {"Auto", "Playa", "Libro", "Marcar", "Cebra", "Elefante", "Jirafa", "Camisa", "Leon", "Platano"};
 
-	private String[] arreglo4 = {"Flor", "Arbol", "Estrella", "Pelota", "Mariposa", "Reloj"};
-	private String[] arreglo5 = {"Oso", "Cielo", "Nube", "Rio", "Reloj", "Lampara"};
-	private String[] arreglo6 = {"Guitarra", "Universo", "Dinosaurio", "Globo", "Camion", "Sombrero"};
-	private String[] arreglo7 = {"Aguacate", "Elefante", "Reloj", "Cancion", "Nadar", "Bicicleta"};
-	private String[] arreglo8 = {"Computadora", "Pintura", "Rosa", "Guitarra", "Ventana", "Reloj"};
+	private String[] arreglo4 = {"Flor", "Arbol", "Estrella", "Pelota", "Mariposa", "Reloj", "Oso", "Cielo", "Nube", "Rio"};
+	private String[] arreglo5 = {"Lampara", "Guitarra", "Universo", "Dinosaurio", "Globo", "Camion", "Aguacate", "Cancion", "Nadar", "Bicicleta"};
+	private String[] arreglo6 = {"Computadora", "Pintura", "Rosa", "Ventana", "Cebra", "Peluche", "Jirafa", "Camisa", "Leon", "Platano"};
+	private String[] arreglo7 = {"Chocolate", "Cama", "Rana", "Flor", "Aguila", "Camisa", "Leon", "Tigre", "Aguila", "Flor"};
+	private String[] arreglo8 = {"Lapiz", "Vaca", "Globo", "Libro", "Rana", "Platano", "Luna", "Libro", "Rana", "Platano"};
 
-	private String[] arreglo9 = {"Cebra", "Peluche", "Pastel", "Luna", "Reloj", "Elefante", "Jirafa", "Nube"};
-	private String[] arreglo10 = {"Chocolate", "Elefante", "Mariposa", "Guitarra", "Reloj", "Cama", "Rana", "Flor"};
-	private String[] arreglo11 = {"Camisa", "Leon", "Elefante", "Cielo", "Reloj", "Tigre", "Aguila", "Flor"};
-	private String[] arreglo12 = {"Lapiz", "Perro", "Cielo", "Manzana", "Reloj", "Elefante", "Vaca", "Globo"};
-	private String[] arreglo13 = {"Libro", "Rana", "Elefante", "Tigre", "Reloj", "Mariposa", "Platano", "Luna"};
 
-	private String[] arreglo14 = {"Globo", "Piano", "Cebra", "Vaca", "Elefante", "Tigre", "Cielo", "Arbol", "Reloj", "Perro", "Cama", "Lampara"};
-	private String[] arreglo15 = {"Reloj", "Jirafa", "Leon", "Pelota", "Pastel", "Luna", "Rosa", "Estrella", "Computadora", "Tren", "Nube", "Gato"};
-	private String[] arreglo16 = {"Elefante", "Flor", "Mariposa", "Peluche", "Cancion", "Aguila", "Rio", "Guitarra", "Nube", "Sol", "Camisa", "Lapiz"};
-	private String[] arreglo17 = {"Luna", "Globo", "Reloj", "Nube", "Estrella", "Cama", "Elefante", "Pintura", "Rana", "Cielo", "Pelota", "Perro"};
-	private String[] arreglo18 = {"Arbol", "Gato", "Cebra", "Pastel", "Mariposa", "Elefante", "Guitarra", "Reloj", "Piano", "Flor", "Estrella", "Pelota"};
-	private String[] arreglo19 = {"Mariposa", "Elefante", "Computadora", "Reloj", "Rana", "Nube", "Peluche", "Luna", "Aguila", "Cielo", "Pastel", "Perro"};
-	private String[] arreglo20 = {"Pelota", "Cama", "Nube", "Luna", "Guitarra", "Reloj", "Estrella", "Elefante", "Mariposa", "Piano", "Perro", "Globo"};
-	private String[] arreglo21 = {"Pastel", "Pelota", "Luna", "Cama", "Aguila", "Estrella", "Computadora", "Elefante", "Rosa", "Cielo", "Reloj", "Nube"};
-	private String[] arreglo22 = {"Reloj", "Cielo", "Aguila", "Globo", "Pintura", "Luna", "Computadora", "Pastel", "Elefante", "Mariposa", "Pelota", "Nube"};
-	private String[] arreglo23 = {"Nube", "Aguila", "Reloj", "Luna", "Globo", "Piano", "Cama", "Elefante", "Computadora", "Pelota", "Mariposa", "Estrella"};
-	private String[] arreglo24 = {"Estrella", "Piano", "Aguila", "Computadora", "Reloj", "Mariposa", "Pelota", "Luna", "Globo", "Nube", "Cama", "Elefante"};
-	private String[] arreglo25 = {"Cama", "Reloj", "Aguila", "Nube", "Luna", "Globo", "Elefante", "Pelota", "Mariposa", "Estrella", "Piano", "Computadora"};
-	private String[] arreglo26 = {"Computadora", "Cama", "Elefante", "Pelota", "Mariposa", "Luna", "Reloj", "Aguila", "Nube", "Globo", "Estrella", "Piano"};
-	private String[] arreglo27 = {"Luna", "Aguila", "Pelota", "Reloj", "Computadora", "Estrella", "Globo", "Piano", "Nube", "Mariposa", "Cama", "Elefante"};
-	private String[] arreglo28 = {"Nube", "Globo", "Reloj", "Piano", "Aguila", "Mariposa", "Cama", "Estrella", "Computadora", "Pelota", "Luna", "Elefante"};
-	private String[] arreglo29 = {"Piano", "Mariposa", "Computadora", "Globo", "Estrella", "Reloj", "Nube", "Pelota", "Aguila", "Luna", "Cama", "Elefante"};
-	private String[] arreglo30 = {"Reloj", "Globo", "Pelota", "Nube", "Luna", "Aguila", "Cama", "Mariposa", "Piano", "Computadora", "Elefante", "Estrella"};
+	private String[] arreglo9 = {"Cebra", "Peluche", "Pastel", "Luna", "Elefante", "Jirafa", "Nube", "Cama", "Rana", "Flor"};
+	private String[] arreglo10 = {"Chocolate", "Elefante", "Mariposa", "Guitarra", "Reloj", "Cama", "Rana", "Flor", "Aguila", "Pastel"};
+	private String[] arreglo11 = {"Camisa", "Leon", "Elefante", "Cielo", "Reloj", "Tigre", "Aguila", "Flor", "Pastel", "Guitarra"};
+	private String[] arreglo12 = {"Lapiz", "Perro", "Cielo", "Manzana", "Reloj", "Elefante", "Vaca", "Globo", "Pastel", "Peluche"};
+	private String[] arreglo13 = {"Libro", "Rana", "Elefante", "Tigre", "Reloj", "Mariposa", "Platano", "Luna", "Pastel", "Peluche"};
+
+
+	private String[] arreglo14 = {"Globo", "Piano", "Cebra", "Vaca", "Elefante", "Tigre", "Cielo", "Arbol", "Reloj", "Perro"};
+	private String[] arreglo15 = {"Reloj", "Jirafa", "Leon", "Pelota", "Pastel", "Luna", "Rosa", "Estrella", "Computadora", "Tren"};
+	private String[] arreglo16 = {"Elefante", "Flor", "Mariposa", "Peluche", "Cancion", "Aguila", "Rio", "Guitarra", "Nube", "Sol"};
+	private String[] arreglo17 = {"Luna", "Globo", "Reloj", "Nube", "Estrella", "Cama", "Elefante", "Pintura", "Rana", "Cielo"};
+	private String[] arreglo18 = {"Arbol", "Gato", "Cebra", "Pastel", "Mariposa", "Elefante", "Guitarra", "Reloj", "Piano", "Flor"};
+	private String[] arreglo19 = {"Mariposa", "Elefante", "Computadora", "Reloj", "Rana", "Nube", "Peluche", "Luna", "Aguila", "Cielo"};
+	private String[] arreglo20 = {"Pelota", "Cama", "Nube", "Luna", "Guitarra", "Reloj", "Estrella", "Elefante", "Mariposa", "Piano"};
+	private String[] arreglo21 = {"Pastel", "Pelota", "Luna", "Cama", "Aguila", "Estrella", "Computadora", "Elefante", "Rosa", "Cielo"};
+	private String[] arreglo22 = {"Reloj", "Cielo", "Aguila", "Globo", "Pintura", "Luna", "Computadora", "Pastel", "Elefante", "Mariposa"};
+	private String[] arreglo23 = {"Nube", "Aguila", "Reloj", "Luna", "Globo", "Piano", "Cama", "Elefante", "Computadora", "Pelota"};
+	private String[] arreglo24 = {"Estrella", "Piano", "Aguila", "Computadora", "Reloj", "Mariposa", "Pelota", "Luna", "Globo"};
+	private String[] arreglo25 = {"Cama", "Reloj", "Aguila", "Nube", "Luna", "Globo", "Elefante", "Pelota", "Mariposa", "Estrella"};
+	private String[] arreglo26 = {"Computadora", "Cama", "Elefante", "Pelota", "Mariposa", "Luna", "Reloj", "Aguila", "Nube", "Globo"};
+	private String[] arreglo27 = {"Luna", "Aguila", "Pelota", "Reloj", "Computadora", "Estrella", "Globo", "Piano", "Nube", "Mariposa"};
+	private String[] arreglo28 = {"Nube", "Globo", "Reloj", "Piano", "Aguila", "Mariposa", "Cama", "Estrella", "Computadora", "Pelota"};
+	private String[] arreglo29 = {"Piano", "Mariposa", "Computadora", "Globo", "Estrella", "Reloj", "Nube", "Pelota", "Aguila", "Luna"};
+	private String[] arreglo30 = {"Reloj", "Globo", "Pelota", "Nube", "Luna", "Aguila", "Cama", "Mariposa", "Piano", "Computadora"};
 		
 	
 	ReproductorSonido reproductor;
@@ -820,8 +822,6 @@ public class Ztype{
 			        	score = score + 25;
 			            lblAuxiliar.setText(texto.substring(1));
 			            reproductor2.reproducir();
-			            LaserAnimacion laser = new LaserAnimacion(250,600,lblAuxiliar.getX(), lblAuxiliar.getY());
-			            panel.add(laser);
 			            break;
 			        }
 			    }
@@ -838,7 +838,7 @@ public class Ztype{
 			Random booleano = new Random();
 			Boolean lanzar = false;
 			
-			int x = randx.nextInt(300) + 30;
+			int x = randx.nextInt(400) + 10;
 			int y = randy.nextInt(30);
 		
 			if(wavesNumber>4) {
@@ -864,6 +864,7 @@ public class Ztype{
 		
 		for(int i = 0; i<arregloEnemigos.size(); i++) {
 			JPanel panelEnemigo = new JPanel();
+			panelEnemigo.setBackground(new Color(0,0,0,100));
 			panelEnemigo.setLayout(new FlowLayout());
 			panelEnemigo.setBounds(arregloEnemigos.get(i).getX(), arregloEnemigos.get(i).getY(), arregloEnemigos.get(i).getWidth() + 20, arregloEnemigos.get(i).getHeight() + 30);
 			panelEnemigo.setBackground(new Color(0,0,0,0));
@@ -884,53 +885,16 @@ public class Ztype{
 
 	private void generarArreglo(int indiceAnterior) {
 		Random rand = new Random();
+		waveActual.clear();
 		int indice = 0;
-		if(wavesNumber<=3) {
-			indice = rand.nextInt(3);
-			if(indice == indiceAnterior) {
-				generarArreglo(indiceAnterior);
-			}else {
-				for(String palabras : waves.get(indice)) {
-					waveActual.add(palabras);
-				}
-				indiceAnterior = indice;
+		indice = rand.nextInt(30);
+		if(indice == indiceAnterior) {
+			generarArreglo(indiceAnterior);
+		}else {
+			for(String palabras : waves.get(indice)) {
+				waveActual.add(palabras);
 			}
-		}
-		
-		if(wavesNumber>3 && wavesNumber <= 8) {
-			indice = rand.nextInt(5) + 3;
-			if(indice == indiceAnterior) {
-				generarArreglo(indiceAnterior);
-			}else {
-				for(String palabras : waves.get(indice)) {
-					waveActual.add(palabras);
-				}
-				indiceAnterior = indice;
-			}
-		}
-		
-		if(wavesNumber>8 && wavesNumber <= 13) {
-			indice = rand.nextInt(5) + 8;
-			if(indice == indiceAnterior) {
-				generarArreglo(indiceAnterior);
-			}else {
-				for(String palabras : waves.get(indice)) {
-					waveActual.add(palabras);
-				}
-				indiceAnterior = indice;
-			}
-		}
-		
-		if(wavesNumber>13 && wavesNumber <= 30) {
-			indice = rand.nextInt(16) + 14;
-			if(indice == indiceAnterior) {
-				generarArreglo(indiceAnterior);
-			}else {
-				for(String palabras : waves.get(indice)) {
-					waveActual.add(palabras);
-				}
-				indiceAnterior = indice;
-			}
+			indiceAnterior = indice;
 		}
 	}
 	
