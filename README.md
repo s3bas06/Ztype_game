@@ -1,0 +1,1 @@
+Aqui se encuentra todo el codigo respecto al videojuego Ztype. El ultimo commit que esta disponible tiene algunos errores por que elimine/comente una seccion del codigo y comente una parte importante, el penultimo commit carece de este error y en general funciona muy bien todo o al menos en los tests que hice. Gracias
