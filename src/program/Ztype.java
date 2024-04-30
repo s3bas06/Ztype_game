@@ -18,6 +18,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,9 +34,11 @@ public class Ztype{
 	private int indiceAnterior = -1;
 	private float volumenMusica = -40.0f;
 	private float volumenSonido = -40.0f;
-	
+	private Integer score = 0;
 	int porcentajeVolumenMusica = 50;
 	int porcentajeVolumenSonido = 50;
+	
+	private List<Integer> listaScores = new ArrayList<>();
 	
 	private JFrame frame;
 
@@ -149,10 +152,10 @@ public class Ztype{
 		reproductor2.cargarSonido("src/program/laser.wav");
 		reproductor2.ajustarVolumen(volumenSonido);
 		
-		//initialize();
+		initialize();
 		//newGame(frame);
-		settings(frame);
-		//myStats();
+		//settings(frame);
+		//myStats(frame);
 		//loadMyOwnWords(frame);
 	}
 
@@ -413,7 +416,6 @@ public class Ztype{
 		botonPausa.setBounds(10,11,32,32);
 		panel_1.add(botonPausa);
 		
-		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(51, 115, 376, 584);
 		panel.add(panel_2);
@@ -427,17 +429,114 @@ public class Ztype{
 		lblNewLabel_3.setBounds(10, 11, 356, 38);
 		panel_2.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_3_1 = new JLabel("-       50%    + ");
+		JLabel lblNewLabel_3_1 = new JLabel("-   "+porcentajeVolumenSonido+"% +");
 		lblNewLabel_3_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		lblNewLabel_3_1.setBounds(10, 163, 356, 38);
 		panel_2.add(lblNewLabel_3_1);
 		
-		JLabel lblNewLabel_3_1_1 = new JLabel("-       50%    + ");
+		lblNewLabel_3_1.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getX() > lblNewLabel_3_1.getWidth()/2) {
+					if(porcentajeVolumenSonido < 100) {
+						System.out.println("El volumen ha aumentado");
+						porcentajeVolumenSonido = porcentajeVolumenSonido + 10;
+						volumenSonido = volumenSonido + 8.0f;
+						reproductor2.ajustarVolumen(volumenSonido);
+						lblNewLabel_3_1.setText("-   "+porcentajeVolumenSonido+"% +");
+					}
+				}else {
+					if(porcentajeVolumenSonido > 0) {
+					System.out.println("El volumen ha disminuido");
+					porcentajeVolumenSonido = porcentajeVolumenSonido - 10;
+					volumenSonido = volumenSonido - 8.0f;
+					reproductor2.ajustarVolumen(volumenSonido);
+					lblNewLabel_3_1.setText("-   "+porcentajeVolumenSonido+"% +");
+					}
+				}
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		JLabel lblNewLabel_3_1_1 = new JLabel("-   "+porcentajeVolumenMusica+"% +");
 		lblNewLabel_3_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 36));
 		lblNewLabel_3_1_1.setBounds(10, 379, 356, 38);
 		panel_2.add(lblNewLabel_3_1_1);
+		
+		lblNewLabel_3_1_1.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getX() > lblNewLabel_3_1_1.getWidth()/2) {
+					if(porcentajeVolumenMusica < 100) {
+						porcentajeVolumenMusica = porcentajeVolumenMusica + 10;
+						volumenMusica = volumenMusica + 8.0f;
+						reproductor.ajustarVolumen(volumenMusica);
+						lblNewLabel_3_1_1.setText("-   "+porcentajeVolumenMusica+"% +");
+					}
+				}else {
+					if(porcentajeVolumenMusica > 0) {
+					porcentajeVolumenMusica = porcentajeVolumenMusica - 10;
+					volumenMusica = volumenMusica - 8.0f;
+					reproductor.ajustarVolumen(volumenMusica);
+					lblNewLabel_3_1_1.setText("-   "+porcentajeVolumenMusica+"% +");
+					}
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		JLabel lblNewLabel_3_1_1_1 = new JLabel("Back to title");
 		lblNewLabel_3_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -456,20 +555,120 @@ public class Ztype{
 		lblNewLabel_3_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_3_1_2_1.setBounds(10, 293, 356, 38);
 		panel_2.add(lblNewLabel_3_1_2_1);
-		
+
 		
 		/*
 		 * 
-		 * ADD MOUSELISTENERS
+		 * 
+		 *  CREACION DE TODAS LAS COSAS DEL JUEGO, EL TIMER, LA CREACION DE NAVES ENEMIGAS, GENERACION DE LAS PALABRAS, ETC.
+		 * 
 		 * 
 		 * 
 		 */
+		
+		
+		generarArreglo(indiceAnterior);
+		generarNaves(panel);
+		
+		if(wavesNumber == -1) {
+			wavesNumber = 1;
+		}
+		
+		Timer timerJuego = new Timer(50, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int j=0;
+				//Coordenadas de la nave.
+				int x = 240;
+				int width = 30;
+				int height = 30;
+				int y = 780;
+				Boolean flag = true;
+				
+				ArrayList<JPanel> copiaArregloNavesPanel = new ArrayList<>(arregloNavesPanel);
+				
+				
+				for(JPanel panelEnemigo  : copiaArregloNavesPanel) {
+					panelEnemigo.repaint();
+					panelEnemigo.revalidate();
+					panelEnemigo.setBounds(panelEnemigo.getX(), panelEnemigo.getY() + 2, panelEnemigo.getWidth(), panelEnemigo.getHeight());
+					if (panelEnemigo.getComponentCount() >= 2) {
+					    JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
+					    String texto = lblAuxiliar.getText();
+					    
+					    if(texto == "") {
+					    	panelEnemigo.removeAll();
+					    	arregloNavesPanel.remove(j);
+					    	frame.repaint();
+					    	frame.revalidate();
+					    }
+					    j++;
+					}
+					
+					if(panelEnemigo.getY() > 840) {
+						arregloNavesPanel.clear();
+						flag = false;
+						
+						
+					}
+					
+					if(
+						panelEnemigo.getX() + panelEnemigo.getWidth() > x &&
+						panelEnemigo.getX() <= x + width &&
+						panelEnemigo.getY() + panelEnemigo.getHeight() > y &&
+						panelEnemigo.getY() <= y + height) {
+						arregloNavesPanel.clear();
+						flag = false;
+					}
+				}
+				
+				if(arregloNavesPanel.isEmpty() && flag) {
+					indiceAnterior = wavesNumber;
+					wavesNumber++;
+					waveActual.clear();
+					arregloEnemigos.clear();
+					arregloNavesPanel.clear();
+					frame.getContentPane().removeAll();
+					newGame(frame);
+					frame.repaint();
+					frame.revalidate();
+				}
+				if(!flag) {
+					wavesNumber= -1;
+					waveActual.clear();
+					arregloEnemigos.clear();
+					arregloNavesPanel.clear();
+					indiceAnterior = -1;
+					listaScores.add(score);
+					
+					for(JPanel panelEnemigo : arregloNavesPanel) {
+						panel.remove(panelEnemigo);
+					}
+					
+					JOptionPane.showMessageDialog(null, "Lo siento, haz perdido. Tu puntuación fue de: " + score, "PERDEDOR", JOptionPane.ERROR_MESSAGE);
+					frame.getContentPane().removeAll();
+					try {
+						initialize();
+					} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					frame.repaint();
+					frame.revalidate();
+					((Timer) e.getSource()).stop();
+				}
+			}
+			
+		});
+		timerJuego.start();
 		
 		panel.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel_2.setVisible(false);
+				timerJuego.start();
 				
 			}
 
@@ -498,68 +697,11 @@ public class Ztype{
 			}
 		});
 		
-		/*
-		 * 
-		 * 
-		 *  CREACION DE TODAS LAS COSAS DEL JUEGO, EL TIMER, LA CREACION DE NAVES ENEMIGAS, GENERACION DE LAS PALABRAS, ETC.
-		 * 
-		 * 
-		 * 
-		 */
-		
-		
-		generarArreglo(indiceAnterior);
-		generarNaves(panel);
-		
-		if(wavesNumber == -1) {
-			wavesNumber = 1;
-		}
-		
-		Timer timerJuego = new Timer(500, new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int j=0;
-				ArrayList<JPanel> copiaArregloNavesPanel = new ArrayList<>(arregloNavesPanel);
-				for(JPanel panelEnemigo  : copiaArregloNavesPanel) {
-					panelEnemigo.repaint();
-					panelEnemigo.revalidate();
-					panelEnemigo.setBounds(panelEnemigo.getX(), panelEnemigo.getY() + 2, panelEnemigo.getWidth(), panelEnemigo.getHeight());
-					JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
-				    String texto = lblAuxiliar.getText();
-				    
-				    if(texto == "" || panelEnemigo.getY() > 850) {
-				    	panelEnemigo.removeAll();
-				    	arregloNavesPanel.remove(j);
-				    	frame.repaint();
-				    	frame.revalidate();
-				    }
-				    j++;
-				}
-				
-				if(arregloNavesPanel.isEmpty()) {
-					indiceAnterior = wavesNumber;
-					wavesNumber++;
-					waveActual.clear();
-					arregloEnemigos.clear();
-					arregloNavesPanel.clear();
-					frame.getContentPane().removeAll();
-					newGame(frame);
-					frame.repaint();
-					frame.revalidate();
-					
-					
-				}
-			}
-			
-		});
-		timerJuego.start();
-		
 		panel_1.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//Timer.stop();
+				timerJuego.stop();
 				panel_2.setVisible(true);
 				lblNewLabel_3_1_1_1.addMouseListener(new MouseListener() {
 
@@ -645,7 +787,8 @@ public class Ztype{
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char letraIngresada = e.getKeyChar();
-				elegirLabel(letraIngresada);
+				elegirLabel(letraIngresada, panel);
+				System.out.println("El score actual es: " + score);
 			}
 
 			@Override
@@ -665,21 +808,25 @@ public class Ztype{
 		panel.add(menuFondo);
 	}
 	
-	private void elegirLabel(char key){
-		for (JPanel panelEnemigo : arregloNavesPanel) {
-		    JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
-		    String texto = lblAuxiliar.getText();
-		    
-		    if (texto != null && !texto.isEmpty()) {
-		        char primerCaracter = Character.toLowerCase(texto.charAt(0));
-		        if (primerCaracter == Character.toLowerCase(key)) {
-		            lblAuxiliar.setText(texto.substring(1));
-		            reproductor2.reproducir();
-		            break;
-		        }
-		    }
+	private void elegirLabel(char key, JPanel panel){
+		if(!arregloNavesPanel.isEmpty()) {
+			for (JPanel panelEnemigo : arregloNavesPanel) {
+			    JLabel lblAuxiliar = (JLabel) panelEnemigo.getComponent(1);
+			    String texto = lblAuxiliar.getText();
+			    
+			    if (texto != null && !texto.isEmpty()) {
+			        char primerCaracter = Character.toLowerCase(texto.charAt(0));
+			        if (primerCaracter == Character.toLowerCase(key)) {
+			        	score = score + 25;
+			            lblAuxiliar.setText(texto.substring(1));
+			            reproductor2.reproducir();
+			            LaserAnimacion laser = new LaserAnimacion(250,600,lblAuxiliar.getX(), lblAuxiliar.getY());
+			            panel.add(laser);
+			            break;
+			        }
+			    }
+			}
 		}
-		
 	}
 	
 	private void generarNaves(JPanel panel) {
@@ -785,10 +932,6 @@ public class Ztype{
 				indiceAnterior = indice;
 			}
 		}
-		
-		for(String palabras : waveActual) {
-			System.out.println(palabras);
-		}
 	}
 	
 	
@@ -818,7 +961,7 @@ public class Ztype{
 		panel_1_1.setBounds(97, 217, 288, 329);
 		panel.add(panel_1_1);
 		
-		JLabel lblSoundVolume = new JLabel("-   50% +");
+		JLabel lblSoundVolume = new JLabel("-   "+porcentajeVolumenSonido+"% +");
 		lblSoundVolume.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSoundVolume.setForeground(Color.WHITE);
 		lblSoundVolume.setFont(new Font("Tahoma", Font.PLAIN, 35));
@@ -921,11 +1064,8 @@ public class Ztype{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				
 				if(e.getX() > lblSoundVolume.getWidth()/2) {
 					if(porcentajeVolumenSonido < 100) {
-						System.out.println("El volumen ha aumentado");
 						porcentajeVolumenSonido = porcentajeVolumenSonido + 10;
 						volumenSonido = volumenSonido + 8.0f;
 						reproductor2.ajustarVolumen(volumenSonido);
@@ -933,14 +1073,12 @@ public class Ztype{
 					}
 				}else {
 					if(porcentajeVolumenSonido > 0) {
-					System.out.println("El volumen ha disminuido");
 					porcentajeVolumenSonido = porcentajeVolumenSonido - 10;
 					volumenSonido = volumenSonido - 8.0f;
 					reproductor2.ajustarVolumen(volumenSonido);
 					lblSoundVolume.setText("-   "+porcentajeVolumenSonido+"% +");
 					}
 				}
-				
 			}
 
 			@Override
@@ -1042,18 +1180,30 @@ public class Ztype{
 		panel_1_1.setBackground(new Color(0,0,0,150));
 		panel_1_1.setLayout(null);
 		
-		panel_1_1.setBounds(97, 217, 288, 329);
+		panel_1_1.setBounds(97, 312, 288, 131);
 		panel.add(panel_1_1);
 		
-		JLabel lblStatsInformation = new JLabel("Informacion de los stats");
+		Integer mejorScore = Integer.MIN_VALUE;
+		
+		if(!listaScores.isEmpty()) {
+			for(Integer score : listaScores) {
+				if(score>mejorScore) {
+					mejorScore = score;
+				}
+			}
+		}else {
+			mejorScore = 0;
+		}
+		
+		JLabel lblStatsInformation = new JLabel("Actualmente: " + mejorScore);
 		lblStatsInformation.setVerticalAlignment(SwingConstants.TOP);
 		lblStatsInformation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatsInformation.setForeground(Color.WHITE);
 		lblStatsInformation.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblStatsInformation.setBounds(10, 63, 268, 255);
+		lblStatsInformation.setBounds(10, 75, 268, 31);
 		panel_1_1.add(lblStatsInformation);
 		
-		JLabel lblNewLabel_2_1_2 = new JLabel("Best Scores");
+		JLabel lblNewLabel_2_1_2 = new JLabel("Best Score is:");
 		lblNewLabel_2_1_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2_1_2.setForeground(Color.WHITE);
 		lblNewLabel_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
